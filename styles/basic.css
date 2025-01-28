@@ -3,10 +3,29 @@ body {
     font-family: sans-serif;
     max-width: 1440px;
     margin: 0 auto;
+    padding-bottom: 5rem;
 }
-h1, h2 {
-    margin: 2rem 0 0;
+h1, h2, h3 {
+    margin: 2rem 0 .5rem;;
 }
 .author {
     font-style: italic;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr td:first-child {
+    width: 3.3rem;
+    text-align: center;
+}
+
+tr td:nth-child(2) {
+    width: 20%;
 }

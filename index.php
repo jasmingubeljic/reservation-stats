@@ -16,39 +16,57 @@
     </header>
     <main>
         <h2>Rezervacije</h2>
-        <h3>Prosječno trajanje rezervacija:</h2>
-        <ul><li><?php echo $stats['durationBasedStats']['average_duration'] . " dana"; ?></li></ul>
+        <h3>Prosjek trajanja rezervacija:</h2>
+        <table><tr><td style="text-align: left"><?php echo $stats['durationBasedStats']['average_duration'] . " dana"; ?></td></tr></table>
         
-        <h3>Top 5 mjesta (po duljini trajanja rezervacije):</h2>
-        <ol>
-            <?php
-                $keys = array_keys($stats['durationBasedStats']['top_5_places']);
-            
-                for ($i=0; $i<count($keys); $i++) {
-                    $key = $keys[$i];
-                    $value = $stats['durationBasedStats']['top_5_places'][$key];
-                    
-                    echo "<li>$key ($value dana)</li>";
-                }
-            ?>
-        </ol>
+        <h3>Top 5 mjesta (prema duljini trajanja rezervacije):</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th>Mjesto</th>
+                <th>Prosjek (u danima)</th>
+            </tr>
+                <?php
+                    $keys = array_keys($stats['durationBasedStats']['top_5_places']);
+                
+                    for ($i=0; $i<count($keys); $i++) {
+                        $key = $keys[$i];
+                        $value = $stats['durationBasedStats']['top_5_places'][$key];
+                        $ordinalNo = $i+1 . ".";
+                        
+                        echo "<tr><td>$ordinalNo</td><td>$key</td><td>$value</td></tr>";
+                    }
+                ?>
+        </table>
 
-        <h3>Top 5 rivijera (po duljini trajanja rezervacije):</h2>
-        <ol>
-            <?php 
-                $keys = array_keys($stats['durationBasedStats']['top_5_rivieras']);
-            
-                for ($i=0; $i<count($keys); $i++) {
-                    $key = $keys[$i];
-                    $value = $stats['durationBasedStats']['top_5_rivieras'][$key];
-                    
-                    echo "<li>$key ($value dana)</li>";
-                }
-            ?>
-        </ol>
+        <h3>Top 5 rivijera (prema duljini trajanja rezervacije):</h2>
+        <table>
+            <tr>
+                <th></th>
+                <th>Rivijera</th>
+                <th>Prosjek (u danima)</th>
+            </tr>
+                <?php
+                    $keys = array_keys($stats['durationBasedStats']['top_5_rivieras']);
+                
+                    for ($i=0; $i<count($keys); $i++) {
+                        $key = $keys[$i];
+                        $value = $stats['durationBasedStats']['top_5_rivieras'][$key];
+                        $ordinalNo = $i+1 . ".";
+                        
+                        echo "<tr><td>$ordinalNo</td><td>$key</td><td>$value</td></tr>";
+                    }
+                ?>
+        </table>
 
         <h2>Ukupan prihod od rezervacija po godini:</h2>
-        <ol>
+        <table>
+            <tr>
+                <th>Godina</th>
+                <th>Prihod</th>
+                <th>Valuta</th>
+            </tr>
+            
             <?php 
                 $keys = array_keys($stats['yearlyIncomeInEur']);
             
@@ -56,25 +74,30 @@
                     $key = $keys[$i];
                     $value = $stats['yearlyIncomeInEur'][$key];
                     
-                    echo "<li>$key: $value EUR</li>";
+                    echo "<tr><td>$key</td><td>$value</td><td>EUR</td></tr>"; // ovdje je string  'EUR' hard-coded (mada je imamo među podacima). U stvarnom projektu bi trebala biti preuzeta sa api endpointa/db. 
                 }
             ?>
-        </ol>
+        </table>
 
         <h2>Lista gostiju koji su rezervirali više od jednom (poredanih od najvećeg broja ostvarenih
         rezervacija prema najmanjem):</h2>
-        <ol>
+        <table>
+            <tr>
+                <th></th>
+                <th>Ime i prezime</th>
+                <th>Broj rezervacija</th>
+            </tr>
             <?php 
                 $keys = array_keys($stats['returningGuests']);
             
                 for ($i=0; $i<count($keys); $i++) {
                     $key = $keys[$i];
                     $value = $stats['returningGuests'][$key];
-                    
-                    echo "<li>$key ($value rezervacije)</li>";
+                    $ordinalNo = $i+1 . ".";
+                    echo "<tr><td>$ordinalNo</td><td>$key</td><td>$value</td></tr>";
                 }
             ?>
-        </ol>
+        </table>
     </main>
     
 </body>
