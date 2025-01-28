@@ -1,6 +1,6 @@
 <?php
     class Reservation {
-        // shodno opisu taska, samo ce 'getReservationStats' biti public
+        // samo je 'getReservationStats' biti 'public'
         private $id, $accommodationId, $arrival, $departure, $guestName, $guestEmail, $guestCountry, $numberOfPeople, $locationPlace, $locationRiviera, $locationRegion, $locationType, $payments;
 
         function __construct($data) {
@@ -10,6 +10,7 @@
                 }
             }
         }
+
 
         /* servis za dohvacanje rezervacija, i kreiranje liste objekata na osnovu Reservation class */
         private static function getAllReservations() {
@@ -24,11 +25,13 @@
             return $reservations;
         }
 
+
         /* statistika rezervacija */
         public static function getReservationStats() {
             $reservations = self::getAllReservations();
             $stats = "reservation statistics placeholder";
             $stats = [
+                "durationBasedStats" => self::computeDurationBasedStats($reservations),
                 "yearlyIncomeInEur" => self::computeYearlyIncome($reservations),
                 "returningGuests" => self::computeReturningGuestsList($reservations),
             ];
@@ -36,8 +39,58 @@
         }
 
 
-         /* Ukupan prihod od rezervacija po godini. */ 
-         private static function computeYearlyIncome($reservations) {
+        /* izracun prosjecnog trajanja rezervacija */
+        private static function computeDurationBasedStats($reservations) {
+            $days = 0;
+            $top_places = [];
+            $top_rivieras = [];
+            foreach ($reservations as $reservation) {
+                $arrival_date = new DateTime($reservation->arrival);
+                $departure_date = new DateTime($reservation->departure);
+                $duration = $arrival_date->diff($departure_date)->days;
+                $days += $duration;
+        
+                /* t op 5 places */
+                $place = $reservation->locationPlace;
+                if (empty($top_places[$place])) {
+                    $top_places[$place] = [];
+                }
+                $top_places[$place][] = $duration;
+        
+                /* top 5 rivieras*/
+                $riviera = $reservation->locationRiviera;
+                if (empty($top_rivieras[$riviera])) {
+                    $top_rivieras[$riviera] = [];
+                }
+                $top_rivieras[$riviera][] = $duration;
+            }
+        
+            $average_duration_for_all_reservations = $days/count($reservations);
+        
+            $place_avg = [];
+            foreach ($top_places as $place => $durations) {
+                $place_avg[$place] = round(array_sum($durations) / count($durations), 2);
+            }
+            $riviera_avg = [];
+            foreach ($top_rivieras as $riviera => $durations) {
+                $riviera_avg[$riviera] = round(array_sum($durations) / count($durations), 2);
+            }
+            arsort($place_avg);
+            arsort($riviera_avg);
+            $top_5_places = array_slice($place_avg, 0, 5);
+            $top_5_rivieras = array_slice($riviera_avg, 0, 5);
+            $average_duration_for_all_reservations = round($average_duration_for_all_reservations,2);
+        
+            return [
+                'average_duration' => $average_duration_for_all_reservations,
+                'top_5_places' => $top_5_places,
+                'top_5_rivieras' => $top_5_rivieras
+            ];
+        }
+
+
+        /* Ukupan prihod od rezervacija po godini. */ 
+        private static function computeYearlyIncome($reservations) {
             $yearly_income =[];
             foreach($reservations as $reservation) {
                 $year_of_guest_arrival = (new DateTime($reservation->arrival)) -> format("Y");
