@@ -1,6 +1,6 @@
 <?php require __DIR__ . "/includes/collector.php"; ?>
 <?php
-    $reservations = Reservation::getAllReservations()
+    $stats = Reservation::getReservationStats();
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +28,7 @@
     rezervacija prema najmanjem):</h2>
     <p>99</p>
 
-    <?php print_r($reservations) ?>
+    <?php print_r($stats) ?>
     
 </body>
 </html>
