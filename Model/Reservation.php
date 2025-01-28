@@ -1,5 +1,6 @@
 <?php
     class Reservation {
+        // shodno opisu taska, samo ce 'getReservationStats' biti public
         private $id, $accommodationId, $arrival, $departure, $guestName, $guestEmail, $guestCountry, $numberOfPeople, $locationPlace, $locationRiviera, $locationRegion, $locationType, $payments;
 
         function __construct($data) {
@@ -11,7 +12,7 @@
         }
 
         /* servis za dohvacanje rezervacija, i kreiranje liste objekata na osnovu Reservation class */
-        public static function getAllReservations() {
+        private static function getAllReservations() {
             $data = file_get_contents('https://api.adriatic.hr/test/reservations');
             $reservationsData = json_decode($data, true);
     
@@ -28,9 +29,27 @@
             $reservations = self::getAllReservations();
             $stats = "reservation statistics placeholder";
             $stats = [
+                "yearlyIncomeInEur" => self::computeYearlyIncome($reservations),
                 "returningGuests" => self::computeReturningGuestsList($reservations),
             ];
             return $stats;
+        }
+
+
+         /* Ukupan prihod od rezervacija po godini. */ 
+         private static function computeYearlyIncome($reservations) {
+            $yearly_income =[];
+            foreach($reservations as $reservation) {
+                $year_of_guest_arrival = (new DateTime($reservation->arrival)) -> format("Y");
+                $total_payment_amount = $reservation->payments['advance']['amount'] + $reservation->payments['remainder']['amount'];
+        
+                if (!isset($yearly_income[$year_of_guest_arrival])) {
+                    $yearly_income[$year_of_guest_arrival] = 0;
+                }
+                $yearly_income[$year_of_guest_arrival] += $total_payment_amount;
+            }
+        
+            return $yearly_income;
         }
 
 

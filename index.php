@@ -20,7 +20,18 @@
     <p>99</p>
 
     <h2>Ukupan prihod od rezervacija po godini:</h2>
-    <p>99</p>
+    <ul>
+        <?php 
+            $keys = array_keys($stats['yearlyIncomeInEur']);
+         
+            for ($i=0; $i<count($keys); $i++) {
+                $key = $keys[$i];
+                $value = $stats['yearlyIncomeInEur'][$key];
+                
+                echo "<li>$key: $value EUR</li>";
+            }
+        ?>
+    </ul>
 
     <h2>Lista gostiju koji su rezervirali više od jednom (poredanih od najvećeg broja ostvarenih
     rezervacija prema najmanjem):</h2>
