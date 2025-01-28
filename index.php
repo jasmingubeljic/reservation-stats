@@ -7,21 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jasmin Gubeljic - Task</title>
+    <link rel="stylesheet" type="text/css" href="styles/basic.css">
 </head>
-<style>
-    body {
-        color:rgb(70, 70, 70);
-        font-family: sans-serif;
-        max-width: 1440px;
-        margin: 0 auto;
-    }
-    h1, h2 {
-        margin: 2rem 0 0;
-    }
-    .author {
-        font-style: italic;
-    }
-</style>
 <body>
     <header>
         <h1>Statistika rezervacija</h1>

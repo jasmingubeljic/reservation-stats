@@ -1,0 +1,12 @@
+body {
+    color:rgb(70, 70, 70);
+    font-family: sans-serif;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+h1, h2 {
+    margin: 2rem 0 0;
+}
+.author {
+    font-style: italic;
+}
