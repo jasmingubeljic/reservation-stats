@@ -35,7 +35,7 @@
 
 
         /* Lista gostiju koji su rezervirali više od jednom (poredanih od najvećeg broja ostvarenih rezervacija prema najmanjem) */
-        private static function computeReturningGuestList($reservations) {
+        private static function computeReturningGuestsList($reservations) {
             $guest_count = [];
             foreach ($reservations as $reservation) {
                 $guestName = $reservation->guestName;
