@@ -1,3 +1,8 @@
+<?php require __DIR__ . "/includes/collector.php"; ?>
+<?php
+    $reservations = Reservation::getAllReservations()
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,5 +27,8 @@
     <h2>Lista gostiju koji su rezervirali više od jednom (poredanih od najvećeg broja ostvarenih
     rezervacija prema najmanjem):</h2>
     <p>99</p>
+
+    <?php print_r($reservations) ?>
+    
 </body>
 </html>
