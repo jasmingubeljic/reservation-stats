@@ -1,13 +1,13 @@
-<h2>Rezervacije</h2>
-<h3>Prosjek trajanja rezervacija:</h2>
+<h2>Accommodation Reservations</h2>
+<h3>Avg. reservation duration:</h2>
 <table><tr><td style="text-align: left"><?php echo $stats['durationBasedStats']['average_duration'] . " dana"; ?></td></tr></table>
 
-<h3>Top 5 mjesta (prema duljini trajanja rezervacije):</h2>
+<h3>Top 5 places:</h2>
 <table>
     <tr>
         <th></th>
-        <th>Mjesto</th>
-        <th>Prosjek (u danima)</th>
+        <th>Place</th>
+        <th>Average (in days)</th>
     </tr>
         <?php
             $keys = array_keys($stats['durationBasedStats']['top_5_places']);
@@ -22,12 +22,12 @@
         ?>
 </table>
 
-<h3>Top 5 rivijera (prema duljini trajanja rezervacije):</h2>
+<h3>Top 5 rivieras (based on reservation duration):</h2>
 <table>
     <tr>
         <th></th>
-        <th>Rivijera</th>
-        <th>Prosjek (u danima)</th>
+        <th>Riviera</th>
+        <th>Average (in days)</th>
     </tr>
         <?php
             $keys = array_keys($stats['durationBasedStats']['top_5_rivieras']);
@@ -42,12 +42,12 @@
         ?>
 </table>
 
-<h2>Ukupan prihod od rezervacija po godini:</h2>
+<h2>Total income by year:</h2>
 <table>
     <tr>
-        <th>Godina</th>
-        <th>Prihod</th>
-        <th>Valuta</th>
+        <th>Year</th>
+        <th>Income</th>
+        <th>Currency</th>
     </tr>
     
     <?php 
@@ -57,18 +57,17 @@
             $key = $keys[$i];
             $value = $stats['yearlyIncomeInEur'][$key];
             
-            echo "<tr><td>$key</td><td>$value</td><td>EUR</td></tr>"; // ovdje je string  'EUR' hard-coded (mada je imamo među podacima). U stvarnom projektu bi trebala biti preuzeta sa api endpointa/db. 
+            echo "<tr><td>$key</td><td>$value</td><td>EUR</td></tr>";
         }
     ?>
 </table>
 
-<h2>Lista gostiju koji su rezervirali više od jednom (poredanih od najvećeg broja ostvarenih
-rezervacija prema najmanjem):</h2>
+<h2>List of guests who have made more than one reservation (sorted from the highest number of bookings to the lowest):</h2>
 <table>
     <tr>
         <th></th>
-        <th>Ime i prezime</th>
-        <th>Broj rezervacija</th>
+        <th>First name and Last name</th>
+        <th>Number of reservations</th>
     </tr>
     <?php 
         $keys = array_keys($stats['returningGuests']);

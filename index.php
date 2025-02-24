@@ -6,13 +6,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jasmin Gubeljic - Task</title>
+    <title>Reservation Statistics</title>
     <link rel="stylesheet" type="text/css" href="styles/basic.css">
 </head>
 <body>
     <header>
-        <h1>Statistika rezervacija</h1>
-        <p class="author">Jasmin Gubeljic ~ Task</p>
+        <h1>Reservations</h1>
+        <p class="author">Statistics Calculation</p>
     </header>
     <main>
         <?php include_once('./includes/statistics_layout.php') ?>

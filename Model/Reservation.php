@@ -1,6 +1,5 @@
 <?php
     class Reservation {
-        // samo je 'getReservationStats' biti 'public'
         private $id, $accommodationId, $arrival, $departure, $guestName, $guestEmail, $guestCountry, $numberOfPeople, $locationPlace, $locationRiviera, $locationRegion, $locationType, $payments;
 
         function __construct($data) {
@@ -12,7 +11,6 @@
         }
 
 
-        /* servis za dohvacanje rezervacija, i kreiranje liste objekata na osnovu Reservation class */
         private static function getAllReservations() {
             $data = file_get_contents('https://api.adriatic.hr/test/reservations');
             $reservationsData = json_decode($data, true);
@@ -26,7 +24,7 @@
         }
 
 
-        /* statistika rezervacija */
+        /* Reservation stats */
         public static function getReservationStats() {
             $reservations = self::getAllReservations();
             $stats = "reservation statistics placeholder";
@@ -39,7 +37,7 @@
         }
 
 
-        /* izracun prosjecnog trajanja rezervacija */
+        /* Avg duration of reservations */
         private static function computeDurationBasedStats($reservations) {
             $days = 0;
             $top_places = [];
@@ -89,7 +87,6 @@
         }
 
 
-        /* Ukupan prihod od rezervacija po godini. */ 
         private static function computeYearlyIncome($reservations) {
             $yearly_income =[];
             foreach($reservations as $reservation) {
@@ -106,7 +103,6 @@
         }
 
 
-        /* Lista gostiju koji su rezervirali više od jednom (poredanih od najvećeg broja ostvarenih rezervacija prema najmanjem) */
         private static function computeReturningGuestsList($reservations) {
             $guest_count = [];
             foreach ($reservations as $reservation) {
