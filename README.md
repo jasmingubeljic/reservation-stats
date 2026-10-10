@@ -1,3 +1,5 @@
-## Showcase of statistics calculation
+## Simple Showcase of statistics calculation
+
+Status: Completed
 
 Object oriented PHP
